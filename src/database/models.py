@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
+from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy import Column, String
 
 from src.config import BASE_URL_LEN, SHORT_URL_LEN
