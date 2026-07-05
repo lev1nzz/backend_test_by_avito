@@ -13,6 +13,13 @@ from src.shortener import generate_short_url
 
 
 def create_short_url_service(payload: CreateUrlSchema, db: Session = Depends(get_db)):
+    
+    if not payload.url or payload.url.strip() == '':
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail='URL can`t be emtpy'
+        )
+    
+    
     all_chars = list(string.ascii_letters + string.digits)
     
     while True:
@@ -36,12 +43,6 @@ def create_short_url_service(payload: CreateUrlSchema, db: Session = Depends(get
         url=new_url.base_url)
 
 
-def validation_custom_slug(text):
-    slug = re.sub(r'\s+', '-', text.strip().lower())
-    pattern = r'^[a-z0-9]+(?:-[a-z0-9]+)*$'
-    is_valid = bool(re.match(pattern, slug))
-    
-    return is_valid, slug
 
 def url_by_slug(short_slug: str, db: Session = Depends(get_db)):
     return db.query(ValueUrl).filter(
