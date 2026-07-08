@@ -5,6 +5,9 @@
 Ссылка на задание:
 https://github.com/avito-tech/auto-backend-trainee-assignment
 
+Сервис доступен как демо - стенд по ссылке:
+https://backendtestbyavito-production.up.railway.app
+
 ## Запуск
 
 Установка зависимостей:
