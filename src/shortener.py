@@ -4,8 +4,9 @@ import string
 
 all_chars = list(string.ascii_letters + string.digits)
 
-# функция генерации короткой ссылки
+
 def generate_short_url(all_chars: list[str]):
+    '''функция генерации короткой ссылки'''
     short_url_slug = ''
 
     for _ in range(6):
