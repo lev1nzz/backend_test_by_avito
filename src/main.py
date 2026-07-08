@@ -1,7 +1,9 @@
 
 from contextlib import asynccontextmanager
 from fastapi import Depends, FastAPI, status
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
+
 from sqlalchemy import  engine
 from sqlalchemy.orm import Session
 
@@ -22,6 +24,30 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+# ===== UI ЭНДПОИНТ =====
+@app.get("/", response_class=HTMLResponse)
+async def root():
+    """Главная страница с UI для сокращения ссылок"""
+    try:
+        with open("static/index.html", "r", encoding="utf-8") as f:
+            return f.read()
+    except FileNotFoundError:
+        return HTMLResponse(content="""
+            <!DOCTYPE html>
+            <html>
+            <head><title>Ошибка</title></head>
+            <body>
+                <h1>⚠️ Файл static/index.html не найден</h1>
+                <p>Пожалуйста, создайте файл static/index.html с UI интерфейсом</p>
+            </body>
+            </html>
+        """, status_code=404)
+
 
 # ручка добавления в бд короткого и длинного урла
 @app.post('/short_url')
