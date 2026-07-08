@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔗 ClickNgo - Сокращатель ссылок</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="background">
+        <div class="gradient-orb orb1"></div>
+        <div class="gradient-orb orb2"></div>
+        <div class="gradient-orb orb3"></div>
+    </div>
+
+    <!-- Основной контейнер -->
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🔗</span>
+                <span class="logo-text">ClickNgo</span>
+            </div>
+            <div class="header-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Переключить тему">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Главный блок -->
+        <main class="main">
+            <div class="hero">
+                <h1 class="hero-title">
+                    Сокращайте ссылки
+                    <span class="gradient-text">мгновенно</span>
+                </h1>
+                <p class="hero-description">
+                    Превратите длинные и сложные URL в короткие, удобные для обмена ссылки
+                </p>
+            </div>
+
+            <!-- Форма -->
+            <div class="card">
+                <div class="input-wrapper">
+                    <div class="input-group">
+                        <span class="input-icon">📎</span>
+                        <input 
+                            type="url" 
+                            id="urlInput" 
+                            class="input-field"
+                            placeholder="Вставьте длинную ссылку..."
+                            autofocus
+                            spellcheck="false"
+                        >
+                        <button class="btn-primary" onclick="shortenUrl()" id="shortenBtn">
+                            <span class="btn-text">Сократить</span>
+                            <span class="btn-spinner" style="display: none;">⟳</span>
+                        </button>
+                    </div>
+                    <div class="input-hint">
+                        <span>Поддерживаются ссылки любого размера</span>
+                    </div>
+                </div>
+
+                <!-- Результат -->
+                <div class="result-container" id="resultContainer" style="display: none;">
+                    <div class="result-card" id="resultCard">
+                        <div class="result-header">
+                            <span class="result-icon">✅</span>
+                            <span class="result-title">Готово!</span>
+                        </div>
+                        <div class="result-body">
+                            <div class="short-url-container">
+                                <div class="short-url-wrapper">
+                                    <span class="short-url-label">Короткая ссылка</span>
+                                    <div class="short-url-box">
+                                        <a href="#" id="shortUrl" class="short-url-link" target="_blank"></a>
+                                        <button class="btn-copy" onclick="copyToClipboard()" id="copyBtn">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <rect x="9" y="9" width="13" height="13" rx="2" stroke-linejoin="round"/>
+                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="copy-text">Копировать</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="original-url-container">
+                                    <span class="original-url-label">Оригинальный URL</span>
+                                    <span class="original-url-text" id="originalUrl"></span>
+                                </div>
+                            </div>
+                            <div class="result-stats">
+                                <span class="stat-item">
+                                    <span class="stat-icon">📅</span>
+                                    <span class="stat-text" id="createdAt"></span>
+                                </span>
+                                <span class="stat-item">
+                                    <span class="stat-icon">📊</span>
+                                    <span class="stat-text">Символов: <span id="charCount"></span></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ошибка -->
+                <div class="error-container" id="errorContainer" style="display: none;">
+                    <div class="error-card">
+                        <div class="error-header">
+                            <span class="error-icon">⚠️</span>
+                            <span class="error-title">Ошибка</span>
+                        </div>
+                        <div class="error-body">
+                            <span class="error-text" id="errorText"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- История -->
+            <div class="history-section" id="historySection" style="display: none;">
+                <div class="history-header">
+                    <h3 class="history-title">📋 Недавние ссылки</h3>
+                    <button class="btn-clear" onclick="clearHistory()">Очистить все</button>
+                </div>
+                <div class="history-list" id="historyList"></div>
+            </div>
+        </main>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <p class="footer-text">
+                Сделано с ❤️ для быстрого обмена ссылками
+            </p>
+            <p class="footer-version">v1.0.0</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
